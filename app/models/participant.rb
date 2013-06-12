@@ -26,7 +26,7 @@ class Participant < ActiveRecord::Base
     
   def build_entry_fields
     self.bets.order("position").each do |b|
-      self.entries.build(bet_id: b.id) unless self.entries.map(&:id).include?(b.id)
+      self.entries.build(bet_id: b.id) unless self.entries.map(&:bet_id).include?(b.id)
     end
   end
     
