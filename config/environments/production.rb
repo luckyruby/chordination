@@ -66,15 +66,14 @@ Chordination::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default charset: "utf-8"
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = {
-    :authentication => :login,
+    :authentication => 'login',
     :address => "smtp.mandrillapp.com",
-    :port => 25,
+    :port => 587,
     :enable_starttls_auto => true,
-    :domain => "www.chordination.com",
+    :domain => "chordination.com",
     :user_name => ENV['SMTP_LOGIN'],
     :password => ENV['SMTP_PASSWORD']
   }
