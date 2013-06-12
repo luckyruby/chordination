@@ -4,6 +4,7 @@ gem 'rails', '3.2.13'
 gem 'pg'
 gem 'devise'
 gem 'acts_as_list'
+gem 'unicorn'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

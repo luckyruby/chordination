@@ -1,0 +1,7 @@
+development:
+  authentication: "plain"
+  address: "smtp.mailgun.org"
+  port: 587
+  domain: "some_domain@mailgun.org"
+  username: "some_user"
+  password: "some_password"
