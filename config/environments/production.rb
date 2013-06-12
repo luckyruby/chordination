@@ -75,7 +75,7 @@ Chordination::Application.configure do
     :port => 587,
     :domain => "chordination.mailgun.org",
     :user_name => ENV['MAILGUN_LOGIN'],
-    :password => ENV['MAILGUN_PASSWORD'],
+    :password => ENV['MAILGUN_PASSWORD']
   }
   
   
