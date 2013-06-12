@@ -59,6 +59,7 @@ namespace :deploy do
   task :add_symlinks, :except => { :no_release => true } do
     run "ln -nfs #{shared_path}/config/database.yml #{latest_release}/config/database.yml"
     run "ln -nfs #{shared_path}/config/unicorn.rb #{latest_release}/config/unicorn.rb"
+    run "ln -nfs #{shared_path}/config/mailer.yml #{latest_release}/config/mailer.yml"
     run "ln -nfs #{shared_path}/system #{latest_release}/system"
     run "ln -nfs #{shared_path}/db/seeds.rb #{latest_release}/db/seeds.rb"
   end
