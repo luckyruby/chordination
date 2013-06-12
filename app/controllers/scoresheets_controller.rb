@@ -10,11 +10,6 @@ class ScoresheetsController < ApplicationController
   
   def create
     @scoresheet = Scoresheet.new(params[:scoresheet])
-    clone = begin
-              Scoresheet.by_user(current_user).find(params[:clone_id])
-            rescue ActiveRecord::RecordNotFound
-              nil
-            end
     @scoresheet.user_id = current_user.id
     if @scoresheet.save
       redirect_to @scoresheet, notice: 'Scoresheet successfully created.'
