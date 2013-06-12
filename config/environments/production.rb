@@ -70,12 +70,13 @@ Chordination::Application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = {
-    :authentication => :plain,
-    :address => "smtp.mailgun.org",
-    :port => 587,
-    :domain => "chordination.mailgun.org",
-    :user_name => ENV['MAILGUN_LOGIN'],
-    :password => ENV['MAILGUN_PASSWORD']
+    :authentication => :login,
+    :address => "smtp.mandrillapp.com",
+    :port => 25,
+    :enable_starttls_auto => true,
+    :domain => "www.chordination.com",
+    :user_name => ENV['SMTP_LOGIN'],
+    :password => ENV['SMTP_PASSWORD']
   }
   
   
