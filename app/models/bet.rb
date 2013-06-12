@@ -3,7 +3,7 @@ class Bet < ActiveRecord::Base
   belongs_to :scoresheet
   has_many :entries
   
-  attr_accessible :name, :bet_type, :choices, :result
+  attr_accessible :name, :bet_type, :choices, :result, :points
   
   validates_presence_of :name, :scoresheet_id
   
