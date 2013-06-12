@@ -22,6 +22,11 @@
               <li class="<%= 'active' if controller_name == 'entries' %>"><%= link_to 'Entries', "/entries/#{@participant.key}" %></li>
             </ul>
           </div>
+          <div class="pull-right">
+            <span style="color: white;">
+              <h4>Welcome, <%= @participant.name %></h4>
+            </span>
+          </div>          
         <% else %>
           <div class="nav-collapse">
             <ul class="nav">

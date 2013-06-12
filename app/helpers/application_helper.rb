@@ -10,7 +10,7 @@ module ApplicationHelper
   end
   
   def pretty_datetime(object, options={})
-    options[:ampm] ? object.strftime("%m/%d/%Y %I:%M:%S %p") : object.strftime("%m/%d/%Y %H:%M:%S")
+    options[:ampm] ? object.strftime("%a %m/%d/%Y %H:%M %p %Z") : object.strftime("%m/%d/%Y %H:%M:%S")
   end
     
 end
