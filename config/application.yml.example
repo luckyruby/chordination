@@ -1,0 +1,2 @@
+MAILGUN_LOGIN: postmaster@domain.mailgun.org
+MAILGUN_PASSWORD: [password]

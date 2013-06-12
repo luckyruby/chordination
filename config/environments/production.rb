@@ -69,7 +69,16 @@ Chordination::Application.configure do
   config.action_mailer.default charset: "utf-8"
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.smtp_settings = YAML.load_file("#{::Rails.root}/config/mailer.yml")['production']
+  config.action_mailer.smtp_settings = {
+    :authentication => :plain,
+    :address => "smtp.mailgun.org",
+    :port => 587,
+    :domain => "chordination.mailgun.org",
+    :user_name => ENV['MAILGUN_LOGIN'],
+    :password => ENV['MAILGUN_PASSWORD'],
+  }
+  
+  
   config.middleware.use ExceptionNotifier,
     exception_recipients: ['klin@luckyruby.com']
   
