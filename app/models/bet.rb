@@ -1,5 +1,5 @@
 class Bet < ActiveRecord::Base
-  acts_as_list
+  acts_as_list :scope => :scoresheet
   belongs_to :scoresheet
   has_many :entries
   
