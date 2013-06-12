@@ -1,6 +1,6 @@
 <h2>Welcome, <%= @participant.name %></h2>
 <h3><%= @participant.scoresheet.name %></h3>
-<h4>Deadline: <%= pretty_datetime(@participant.scoresheet.deadline, ampm: true) %></h4>
+<h4>Deadline: <%= pretty_datetime(@participant.scoresheet.deadline, ampm: true) %> Eastern</h4>
 <table class="table table-striped table-hover table-condensed">
   <tr>
     <th>&nbsp;</th>
