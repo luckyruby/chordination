@@ -70,6 +70,8 @@ Chordination::Application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = YAML.load_file("#{::Rails.root}/config/mailer.yml")['production']
+  config.middleware.use ExceptionNotifier,
+    exception_recipients: ['klin@luckyruby.com']
   
   config.root_url = "http://www.chordination.com"
 end

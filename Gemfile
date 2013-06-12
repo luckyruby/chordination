@@ -5,6 +5,12 @@ gem 'pg'
 gem 'devise'
 gem 'acts_as_list'
 gem 'unicorn'
+gem 'jquery-rails'
+gem 'therubyracer'
+gem 'exception_notification'
+
+gem 'quiet_assets', group: [:development, :ken]
+gem 'better_errors', :group => [:development, :ken]
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -13,6 +19,3 @@ group :assets do
   gem 'less-rails'
   gem 'twitter-bootstrap-rails'  
 end
-gem 'quiet_assets', group: [:development, :ken]
-gem 'jquery-rails'
-gem 'therubyracer'
