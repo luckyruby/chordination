@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chordination</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <%= link_to 'Chordination', root_path, class: 'brand' %>
+        <% if @participant %>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="<%= 'active' if controller_name == 'entries' %>"><%= link_to 'Entries', "/entries/#{@participant.key}" %></li>
+            </ul>
+          </div>
+        <% else %>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <% if current_user %>
+                <li class="<%= 'active' if action_name == 'scoresheets' %>"><%= link_to 'Scoresheets', scoresheets_path %></li>
+                <li class="<%= 'active' if action_name == 'profile' %>"><%= link_to 'Profile', profile_path %></li>
+              <% else %>
+                <li class="<%= 'active' if controller_name == 'registrations' %>"><%= link_to 'Register', register_path %></li>
+              <% end %>
+            </ul>
+            <div class="pull-right">
+              <% if current_user %>
+                <%= link_to 'Sign Out', destroy_user_session_path, :method => :delete, class: 'btn btn-danger' %>
+              <% else %>
+                <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-primary' %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <% flash.each do |name, msg| %>
+      <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+        <%= msg %>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="span12"><%= yield %></div>
+    </div>
+  </div>
+</body>
+</html>

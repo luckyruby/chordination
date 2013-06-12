@@ -1,0 +1,25 @@
+<h2>Welcome, <%= @participant.name %></h2>
+<h3>Deadline: <%= pretty_datetime(@participant.scoresheet.deadline, ampm: true) %></h3>
+<table class="table table-striped table-hover table-condensed">
+  <tr>
+    <th>&nbsp;</th>
+    <% @bets.each do |b| %>
+      <th><%= b.name %></th>
+    <% end %>
+  </tr>    
+  <% @participants.each do |p| %>
+    <tr>
+      <td><%= p.name %></td>
+      <% @bets.each do |b| %>
+        <td>
+          <% if p.id == @participant.id || @participant.scoresheet.expired? %>
+            <%= @entries["#{b.id}:#{p.id}"] %>
+          <% else %>
+            --
+          <% end %>
+      <% end %>
+  <% end %>
+</table>
+<% unless @participant.scoresheet.expired? %>
+  <%= link_to 'Modify your Entries', "#{@participant.key}/edit", class: 'btn' %>
+<% end %>

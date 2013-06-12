@@ -1,0 +1,23 @@
+<h2><%= @participant.scoresheet.name %></h2>
+<h3>Your Entries</h3>
+<%= render 'layouts/errors', object: @participant %>
+<%= form_for @participant, url: "/entries/#{@participant.key}", html: { class: 'form-horizontal'} do |f| %>
+  <table class="table table-striped table-hover table-condensed">
+    <%= f.fields_for :entries do |e| %>
+      <tr>
+        <td><%= e.object.bet.name %></td>
+        <td>
+          <%= e.hidden_field :bet_id %>
+          <%= e.hidden_field :participant_id %>
+          <% if e.object.bet.bet_type == 'winner' %>
+            <%= e.select :winner, options_for_select(e.object.bet.choices.split(","), e.object.value.try(:split,',').try(:first)) %>
+            <%= e.text_field :value, placeholder: 'Win by how much?' %>
+          <% else %>
+            <%= e.text_field :value %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <%= f.submit 'Submit', class: 'btn btn-success' %>
+<% end %>

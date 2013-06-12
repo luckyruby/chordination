@@ -1,0 +1,29 @@
+<%= render 'layouts/errors', object: @scoresheet %>
+<%= form_for @scoresheet do |f| %>
+  <%= hidden_field_tag :clone_id, params[:clone_id] %>
+  <fieldset>
+    <div id="legend">
+      <legend class="">Scoresheet</legend>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :name, class: 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, autofocus: true, class: 'input-xlarge' %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :deadline, class: 'control-label' %>
+      <div class="controls">
+        <%= f.datetime_select :deadline %>
+      </div>
+    </div>
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <%= f.submit class: 'btn btn-success' %>
+      </div>
+    </div>
+  </fieldset>
+<% end %>

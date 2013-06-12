@@ -1,0 +1,36 @@
+<%= render 'layouts/errors', object: @bet %>
+<%= form_for [@scoresheet, @bet], html: { class: 'form-horizontal'} do |f| %>
+  <fieldset>
+    <div id="legend">
+      <legend class="">Bet</legend>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :name, class: 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, autofocus: true, class: 'input-xlarge' %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :bet_type, 'Bet Type', class: 'control-label' %>
+      <div class="controls">
+        <%= f.select :bet_type, options_for_select(%w(differential winner), @bet.bet_type) %>
+      </div>
+    </div>
+    
+    <div class="control-group choices">
+      <%= f.label :choices, class: 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :choices, class: 'input-xlarge', placeholder: 'Choice 1, Choice 2, Choice 3' %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <%= f.submit class: 'btn btn-success' %>
+      </div>
+    </div>
+  </fieldset>
+<% end %>

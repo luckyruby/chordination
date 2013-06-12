@@ -1,0 +1,48 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { :method => :put, class: 'form-horizontal'}) do |f| %>
+  <%= devise_error_messages! %>
+  <fieldset>
+    <div id="legend">
+      <legend class="">Profile</legend>
+    </div>
+    <div class="control-group">
+      <!-- E-mail -->
+      <%= f.label :email, class: 'control-label' %>
+      <div class="controls">
+        <%= f.email_field :email, class: 'input-xlarge' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <!-- Password-->
+      <%= f.label :password, class: 'control-label' %>
+      <div class="controls">
+        <%= f.password_field :password, class: 'input-xlarge' %>
+        <p class="help-block">Password should be at least 6 characters</p>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <!-- Password -->
+      <%= f.label :password_confirmation, 'Password (Confirm)', class: 'control-label' %>
+      <div class="controls">
+        <%= f.password_field :password_confirmation, class: 'input-xlarge' %>
+        <p class="help-block">Please confirm password</p>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <!-- Password -->
+      <%= f.label :current_password, 'Current Password', class: 'control-label' %>
+      <div class="controls">
+        <%= f.password_field :current_password, class: 'input-xlarge' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <%= f.submit 'Update', class: 'btn btn-success' %>
+      </div>
+    </div>
+  </fieldset>
+<% end %>
