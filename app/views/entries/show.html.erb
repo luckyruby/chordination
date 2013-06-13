@@ -1,28 +1,59 @@
 <h3><%= @participant.scoresheet.name %></h3>
 <h4>Deadline: <%= pretty_datetime(@participant.scoresheet.deadline, ampm: true) %></h4>
 <% if @participant.scoresheet.message.present? %>
-  <div class="well"><p><%= @participant.scoresheet.message %></p></div>
+  <div class="well">
+    <h4>Message</h4>
+    <p><%= @participant.scoresheet.message %></p>
+  </div>
 <% end %>
-<table class="table table-striped table-hover table-condensed">
-  <tr>
-    <th>&nbsp;</th>
-    <% @bets.each do |b| %>
-      <th><%= b.name %> (<%= b.points %> pt bet)</th>
-    <% end %>
-  </tr>    
-  <% @participants.each do |p| %>
+<div class="well">
+  <h4>Entries</h4>
+  <table class="table table-striped table-hover table-condensed">
     <tr>
-      <td><%= p.name %></td>
+      <th>&nbsp;</th>
       <% @bets.each do |b| %>
-        <td>
-          <% if p.id == @participant.id || @participant.scoresheet.expired? %>
-            <%= @entries["#{b.id}:#{p.id}"] %>
-          <% else %>
-            --
+        <th><%= b.name %></th>
+      <% end %>
+    </tr>    
+    <% @participants.each do |p| %>
+      <tr>
+        <td><%= p.name %></td>
+        <% @bets.each do |b| %>
+          <td>
+            <% if p.id == @participant.id || @participant.scoresheet.expired? %>
+              <%= @entries[b.id][p.id] %>
+            <% else %>
+              --
+            <% end %>
+        <% end %>
+    <% end %>
+  </table>
+  <% unless @participant.scoresheet.expired? %>
+    <%= link_to 'Modify your Entries', "#{@participant.key}/edit", class: 'btn' %>
+  <% end %>
+</div>
+<% if @participant.scoresheet.expired? && @bets.map(&:value).present? %>
+  <div class="well">
+    <h4>Differentials</h4>
+    <table class="table table-striped table-hover table-condensed">
+      <tr>
+        <th>&nbsp;</th>
+        <% @bets.each do |b| %>
+          <th><%= b.name %></th>
+        <% end %>
+      </tr>    
+      <% @participants.each do |p| %>
+        <tr>
+          <td><%= p.name %></td>
+          <% @bets.each do |b| %>
+            <td><%= @differentials[b.id][p.id] %></td>
           <% end %>
       <% end %>
-  <% end %>
-</table>
-<% unless @participant.scoresheet.expired? %>
-  <%= link_to 'Modify your Entries', "#{@participant.key}/edit", class: 'btn' %>
+      <tr>
+        <th>Winners</th>
+        <% @bets.each do |b| %>
+          <td><%= @winners[b.id].map {|w| @participants.detect{|p| p.id == w}.name }.join(",") %></td>
+        <% end %>
+    </table>
+  </div>
 <% end %>
