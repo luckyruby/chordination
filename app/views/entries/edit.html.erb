@@ -5,7 +5,7 @@
   <table class="table table-striped table-hover table-condensed">
     <%= f.fields_for :entries do |e| %>
       <tr>
-        <td><%= e.object.bet.name %> (<%= b.points %> pt bet)</td>
+        <td><%= e.object.bet.name %> (<%= e.object.bet.points %> pt bet)</td>
         <td>
           <%= e.hidden_field :bet_id %>
           <%= e.hidden_field :participant_id %>
