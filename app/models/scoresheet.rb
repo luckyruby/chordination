@@ -24,9 +24,7 @@ class Scoresheet < ActiveRecord::Base
   end
   
   def build_result_fields
-    self.bets.order("position").each do |b|
-      self.bets.build unless self.bets.map(&:id).include?(b.id)
-    end
+    self.bets.each {|b| self.bets.build unless self.bets.map(&:id).include?(b.id)}
   end
   
   private

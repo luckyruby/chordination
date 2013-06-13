@@ -48,6 +48,7 @@ class ParticipantsController < ApplicationController
   def reinvite
     @scoresheet = Scoresheet.by_user(current_user).find(params[:scoresheet_id])
     @participant = Participant.find(params[:id])
+    @participant.update_attributes(declined: false) if @participant.declined? #reset declined flag
     ParticipantMailer.invitation_email(@participant).deliver
     redirect_to @scoresheet, notice: "Successfully re-invited #{@participant.email}."
   end

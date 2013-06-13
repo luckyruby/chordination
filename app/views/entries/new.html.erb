@@ -1,7 +1,7 @@
 <div class="hero-unit">
   <h2>Welcome, <%= @participant.name %></h2>
   <% if @participant.scoresheet.deadline >= Time.now %>
-    <h3>Will you be participating in this bet?</h3>
+    <h3>Will you be participating in "<%= @participant.scoresheet.name %>"?</h3>
     <%= link_to 'Accept', "/entries/#{@participant.key}/accept", :method => :post, class: 'btn btn-primary' %>
     <%= link_to 'Decline', "/entries/#{@participant.key}/decline", :method => :delete, class: 'btn btn-danger' %>
   <% else %>
