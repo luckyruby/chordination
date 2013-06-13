@@ -54,6 +54,29 @@
         <% @bets.each do |b| %>
           <td><%= @winners[b.id].map {|w| @participants.detect{|p| p.id == w}.name }.join(",") %></td>
         <% end %>
+      </tr>
     </table>
   </div>
+  
+  <div class="well">
+    <h4>Standings</h4>
+    <table class="table table-striped table-hover table-condensed">
+      <tr>
+        <th>&nbsp;</th>
+        <% @bets.each do |b| %>
+          <th><%= b.name %></th>
+        <% end %>
+        <th>TOTAL</th>
+      </tr>    
+      <% @participants.each do |p| %>
+        <tr>
+          <td><%= p.name %></td>
+          <% @bets.each do |b| %>
+            <td><%= sprintf('%g', @standings[p.id][b.id]) %></td>
+          <% end %>
+          <td><%= sprintf('%g', @standings[p.id].values.sum) %></td>
+      <% end %>
+    </table>
+  </div>
+  
 <% end %>

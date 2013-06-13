@@ -25,6 +25,7 @@ class EntriesController < ApplicationController
       @entries = {}
       @differentials = {}
       @winners = {}
+      @standings = {}
       
       #initialize hashes by bet id
       @bets.each do |b|
@@ -60,6 +61,20 @@ class EntriesController < ApplicationController
       @bets.each do |b|
         lowest_diff = @differentials[b.id].values.sort.first
         @winners[b.id] = @differentials[b.id].select {|k,v| v == lowest_diff}.keys
+      end
+      
+      #determine standings of each participant
+      @participants.each do |p|
+        @standings[p.id] = {}
+        @bets.each do |b|
+          winner_count = @winners[b.id].length
+          loser_count = (@participants.length - winner_count)
+          @standings[p.id][b.id] =  if @winners[b.id].include?(p.id)
+                                      loser_count * b.points.to_f / winner_count.to_f
+                                    else
+                                      b.points*-1
+                                    end
+        end
       end
       
     else
