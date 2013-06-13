@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130612223034) do
+ActiveRecord::Schema.define(:version => 20130613182903) do
 
   create_table "bets", :force => true do |t|
     t.integer  "scoresheet_id",                :null => false
@@ -19,10 +19,11 @@ ActiveRecord::Schema.define(:version => 20130612223034) do
     t.string   "name",                         :null => false
     t.string   "bet_type",                     :null => false
     t.string   "choices"
-    t.string   "result"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
     t.integer  "points",        :default => 5, :null => false
+    t.string   "value"
+    t.string   "winner"
   end
 
   add_index "bets", ["scoresheet_id", "name"], :name => "index_bets_on_scoresheet_id_and_name", :unique => true
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20130612223034) do
     t.datetime "deadline",   :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.text     "message"
   end
 
   add_index "scoresheets", ["user_id", "name"], :name => "index_scoresheets_on_user_id_and_name", :unique => true

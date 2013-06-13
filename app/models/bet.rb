@@ -3,7 +3,8 @@ class Bet < ActiveRecord::Base
   belongs_to :scoresheet
   has_many :entries
   
-  attr_accessible :name, :bet_type, :choices, :result, :points
+  #value & winner are used to store the result of the bet
+  attr_accessible :name, :bet_type, :choices, :points, :value, :winner
   
   validates_presence_of :name, :scoresheet_id
   

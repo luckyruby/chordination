@@ -38,10 +38,24 @@ class BetsController < ApplicationController
   end
   
   def destroy
-    @scoresheet = Scoresheet.find(params[:scoresheet_id])
+    @scoresheet = Scoresheet.find(params[:id])
     @bet = Bet.find(params[:id])
     @bet.destroy
     redirect_to @scoresheet
+  end
+  
+  def results
+    @scoresheet = Scoresheet.find(params[:id])
+    @scoresheet.build_result_fields
+  end
+  
+  def save_results
+    @scoresheet = Scoresheet.find(params[:id])
+    if @scoresheet.update_attributes(params[:scoresheet])
+      redirect_to @scoresheet, notice: 'Results have been saved.'
+    else
+      render :results
+    end
   end
   
 end

@@ -34,7 +34,8 @@ class ScoresheetsController < ApplicationController
   def show
     @scoresheet = Scoresheet.by_user(current_user).find(params[:id])
   end
-  
+    
   def destroy
   end
+  
 end

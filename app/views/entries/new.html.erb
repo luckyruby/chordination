@@ -3,7 +3,7 @@
   <% if @participant.scoresheet.deadline >= Time.now %>
     <h3>Will you be participating in this bet?</h3>
     <%= link_to 'Accept', "/entries/#{@participant.key}/accept", :method => :post, class: 'btn btn-primary' %>
-    <%= link_to 'Remove me', "/entries/#{@participant.key}/remove", :method => :delete, class: 'btn btn-danger' %>
+    <%= link_to 'Decline', "/entries/#{@participant.key}/decline", :method => :delete, class: 'btn btn-danger' %>
   <% else %>
     <h3>Sorry, the deadline for this bet has passed!</h3>
   <% end %>

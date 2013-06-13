@@ -5,6 +5,7 @@
    <title>Chordination Bet Invite</title>
 </head>
 <body>
+  <p><%= @participant.scoresheet.user.name %> (<%= @participant.scoresheet.user.email %>) invites you to bet on "<%= @participant.scoresheet.name %>"</p>
   Click <%= link_to 'HERE', "#{Rails.application.config.root_url}/entries/#{@participant.key}" %> to play.
 </body>
 </html>

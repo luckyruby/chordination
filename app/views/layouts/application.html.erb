@@ -36,6 +36,7 @@
               <% else %>
                 <li class="<%= 'active' if controller_name == 'registrations' %>"><%= link_to 'Register', register_path %></li>
               <% end %>
+              <li class="<%= 'active' if action_name == 'about' %>"><%= link_to 'About', '/about' %></li>
             </ul>
             <div class="pull-right">
               <% if current_user %>

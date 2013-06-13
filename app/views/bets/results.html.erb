@@ -1,0 +1,20 @@
+<h2>Results for <%= @scoresheet.name %></h2>
+<%= render 'layouts/errors', object: @scoresheet %>
+<%= form_for @scoresheet, url: results_scoresheet_path(@scoresheet), html: { class: 'form-horizontal'} do |f| %>
+  <table class="table table-striped table-hover table-condensed">
+    <%= f.fields_for :bets do |b| %>
+      <tr>
+        <td><%= b.object.name %></td>
+        <td>
+          <% if b.object.bet_type == 'winner' %>
+            <%= b.select :winner, options_for_select(b.object.choices.split(","), b.object.value.try(:split,',').try(:first)) %>
+            <%= b.text_field :value, placeholder: 'Win by how much?' %>
+          <% else %>
+            <%= b.text_field :value %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <%= f.submit 'Submit', class: 'btn btn-success' %>
+<% end %>

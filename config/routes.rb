@@ -8,7 +8,7 @@ Chordination::Application.routes.draw do
     get "register" => "devise/registrations#new"
     post "register" => "devise/registrations#create"
   end
-
+  get "about" => "pages#about"
   get "dashboard" => "pages#dashboard"
   
   get "entries/:key/new" => "entries#new"
@@ -19,15 +19,18 @@ Chordination::Application.routes.draw do
   delete "entries/:key/remove" => "entries#remove"
       
   resources :scoresheets do
+    member do
+      get 'results' => "bets#results"
+      put 'results' => "bets#save_results"
+    end
     resources :bets
+    resources :results
     resources :participants do
       member do
         get "reinvite"
       end
     end
   end
-  
-  
   
   root :to => 'pages#home'
 end

@@ -43,13 +43,13 @@ class EntriesController < ApplicationController
     redirect_to "/entries/#{@participant.key}/edit"
   end
   
-  def remove
+  def decline
     @participant.accepted = false
     @participant.declined = true
     @participant.save
-    render text: 'You have been removed'
+    render text: 'You have successfully declined this invite.'
   end
-  
+    
   private
   
   def validate_key
@@ -62,7 +62,7 @@ class EntriesController < ApplicationController
   end
   
   def check_status
-    render text: 'You have not been invited.' if @participant.declined?
+    render text: 'You have previously declined this invite.' if @participant.declined?
   end
     
 end
