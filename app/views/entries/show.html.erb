@@ -19,7 +19,7 @@
     </thead>
     <tbody>
       <% @participants.each do |p| %>
-        <tr>
+        <tr class="<%= p.id == @participant.id ? 'success' : '' %>">
           <td class="bold"><%= p.name %></td>
           <% @bets.each do |b| %>
             <td>
@@ -67,7 +67,7 @@
       </thead>
       <tbody>
         <% @participants.each do |p| %>
-          <tr>
+          <tr class="<%= p.id == @participant.id ? 'success' : '' %>">
             <td class="bold"><%= p.name %></td>
             <% @bets.each do |b| %>
               <td><%= @differentials[b.id][p.name] %></td>
@@ -106,7 +106,7 @@
       </thead>
       <tbody> 
         <% @participants.each do |p| %>
-          <tr>
+          <tr class="<%= p.id == @participant.id ? 'success' : '' %>">
             <td><%= p.name %></td>
             <% @bets.each do |b| %>
               <td><%= colorize_points(@standings[p.name][b.id]) %></td>
