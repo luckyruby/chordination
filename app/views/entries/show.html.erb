@@ -9,29 +9,42 @@
 <div class="well">
   <h4>Entries</h4>
   <table class="table table-striped table-hover table-condensed">
-    <tr>
-      <th>&nbsp;</th>
-      <% @bets.each do |b| %>
-        <th><%= b.name %></th>
-      <% end %>
-    </tr>    
-    <% @participants.each do |p| %>
+    <thead>
       <tr>
-        <td><%= p.name %></td>
+        <th>&nbsp;</th>
         <% @bets.each do |b| %>
-          <td>
-            <% if @entries[b.id][p.name].present? %>
-              <% if p.id == @participant.id || @participant.scoresheet.expired? %>
-                <%= @entries[b.id][p.name] %>
-              <% else %>
-                <%= check_mark('Submitted but hidden') %>
-              <% end %>
-            <% else %>
-              <%= question_mark('No Entry Yet')%>
-            <% end %>
-          </td>
+          <th><%= b.name %></th>
         <% end %>
-    <% end %>
+      </tr>    
+    </thead>
+    <tbody>
+      <% @participants.each do |p| %>
+        <tr>
+          <td class="bold"><%= p.name %></td>
+          <% @bets.each do |b| %>
+            <td>
+              <% if @entries[b.id][p.name].present? %>
+                <% if p.id == @participant.id || @participant.scoresheet.expired? %>
+                  <%= @entries[b.id][p.name] %>
+                <% else %>
+                  <%= check_mark('Submitted but hidden') %>
+                <% end %>
+              <% else %>
+                <%= question_mark('No Entry Yet')%>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+      <% if @results %>
+        <tr class="info bold">
+          <td>Results</td>
+          <% @bets.each do |b| %>
+            <td><%= @entries[b.id]['result'] %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
   <% unless @participant.scoresheet.expired? %>
     <%= link_to 'Modify your Entries', "#{@participant.key}/edit", class: 'btn btn-success' %>
@@ -41,61 +54,70 @@
   <div class="well">
     <h4>Differentials</h4>
     <table class="table table-striped table-hover table-condensed">
-      <tr>
-        <th>&nbsp;</th>
-        <% @bets.each do |b| %>
-          <th><%= b.name %></th>
-        <% end %>
-        <% if @scoresheet.consolation? %>
-          <th>Consolation</th>
-        <% end %>
-      </tr>    
-      <% @participants.each do |p| %>
+      <thead>
         <tr>
-          <td><%= p.name %></td>
+          <th>&nbsp;</th>
           <% @bets.each do |b| %>
-            <td><%= @differentials[b.id][p.name] %></td>
+            <th><%= b.name %></th>
           <% end %>
           <% if @scoresheet.consolation? %>
-            <td><%= @consolation[p.name] %>
+            <th>Consolation</th>
           <% end %>
-      <% end %>
-      <tr>
-        <th>Winners</th>
-        <% @bets.each do |b| %>
-          <td><%= @winners[b.id].join(",") %></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% @participants.each do |p| %>
+          <tr>
+            <td class="bold"><%= p.name %></td>
+            <% @bets.each do |b| %>
+              <td><%= @differentials[b.id][p.name] %></td>
+            <% end %>
+            <% if @scoresheet.consolation? %>
+              <td><%= @consolation[p.name] %>
+            <% end %>
         <% end %>
-        <% if @scoresheet.consolation? %>
-          <td><%= @winners['consolation'].join(",") %></td>
-        <% end %>
-      </tr>
+        <tr class="info bold">
+          <td>Winners</td>
+          <% @bets.each do |b| %>
+            <td><%= @winners[b.id].join(",") %></td>
+          <% end %>
+          <% if @scoresheet.consolation? %>
+            <td><%= @winners['consolation'].join(",") %></td>
+          <% end %>
+        </tr>
+      </tbody>
     </table>
   </div>
   
   <div class="well">
     <h4>Standings</h4>
     <table class="table table-striped table-hover table-condensed">
-      <tr>
-        <th>&nbsp;</th>
-        <% @bets.each do |b| %>
-          <th><%= b.name %></th>
-        <% end %>
-        <% if @scoresheet.consolation? %>
-          <th>Consolation</th>
-        <% end %>
-        <th>TOTAL</th>
-      </tr>    
-      <% @participants.each do |p| %>
+      <thead>
         <tr>
-          <td><%= p.name %></td>
+          <th>&nbsp;</th>
           <% @bets.each do |b| %>
-            <td><%= sprintf('%g', @standings[p.name][b.id]) %></td>
+            <th><%= b.name %></th>
           <% end %>
           <% if @scoresheet.consolation? %>
-            <td><%= sprintf('%g', @standings[p.name]['consolation']) %></td>
+            <th>Consolation</th>
           <% end %>
-          <td><%= sprintf('%g', @standings[p.name].values.sum) %></td>
-      <% end %>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody> 
+        <% @participants.each do |p| %>
+          <tr>
+            <td><%= p.name %></td>
+            <% @bets.each do |b| %>
+              <td><%= sprintf('%g', @standings[p.name][b.id]) %></td>
+            <% end %>
+            <% if @scoresheet.consolation? %>
+              <td><%= sprintf('%g', @standings[p.name]['consolation']) %></td>
+            <% end %>
+            <td class="bold"><%= sprintf('%g', @standings[p.name].values.sum) %></td>
+          </tr>
+        <% end %>
+      </tbody>
     </table>
   </div>
   

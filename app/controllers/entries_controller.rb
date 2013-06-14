@@ -62,6 +62,17 @@ class EntriesController < ApplicationController
         end
       end
       
+      #add results to entries hash
+      if @results
+        @bets.each do |b|
+          @entries[b.id]['result'] = if b.bet_type == "winner"
+                                        "#{b.winner} by #{b.value}"
+                                      else
+                                        b.value
+                                      end
+        end
+      end
+      
       if @scoresheet.expired? && @results
         
         #calculate consolation differential
