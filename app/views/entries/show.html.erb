@@ -109,12 +109,12 @@
           <tr>
             <td><%= p.name %></td>
             <% @bets.each do |b| %>
-              <td><%= sprintf('%g', @standings[p.name][b.id]) %></td>
+              <td><%= colorize_points(@standings[p.name][b.id]) %></td>
             <% end %>
             <% if @scoresheet.consolation? %>
-              <td><%= sprintf('%g', @standings[p.name]['consolation']) %></td>
+              <td><%= colorize_points(@standings[p.name]['consolation']) %></td>
             <% end %>
-            <td class="bold"><%= sprintf('%g', @standings[p.name].values.sum) %></td>
+            <td class="bold"><%= colorize_points(@standings[p.name].values.sum) %></td>
           </tr>
         <% end %>
       </tbody>
