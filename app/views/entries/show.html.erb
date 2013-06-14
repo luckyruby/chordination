@@ -29,7 +29,7 @@
     <% end %>
   </table>
   <% unless @participant.scoresheet.expired? %>
-    <%= link_to 'Modify your Entries', "#{@participant.key}/edit", class: 'btn' %>
+    <%= link_to 'Modify your Entries', "#{@participant.key}/edit", class: 'btn btn-success' %>
   <% end %>
 </div>
 <% if @participant.scoresheet.expired? && @bets.map(&:value).present? %>
