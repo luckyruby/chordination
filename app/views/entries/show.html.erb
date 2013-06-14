@@ -32,7 +32,7 @@
     <%= link_to 'Modify your Entries', "#{@participant.key}/edit", class: 'btn btn-success' %>
   <% end %>
 </div>
-<% if @participant.scoresheet.expired? && @bets.map(&:value).present? %>
+<% if @participant.scoresheet.expired? && !@bets.map(&:value).any? {|i| i.nil? } %>
   <div class="well">
     <h4>Differentials</h4>
     <table class="table table-striped table-hover table-condensed">
