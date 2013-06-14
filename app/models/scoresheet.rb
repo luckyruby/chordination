@@ -23,6 +23,10 @@ class Scoresheet < ActiveRecord::Base
     self.deadline < Time.now
   end
   
+  def results_in?
+    !self.bets.map(&:value).any? {|i| i.nil? }
+  end
+  
   def build_result_fields
     self.bets.each {|b| self.bets.build unless self.bets.map(&:id).include?(b.id)}
   end
