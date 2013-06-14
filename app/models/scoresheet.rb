@@ -3,7 +3,7 @@ class Scoresheet < ActiveRecord::Base
   has_many :bets
   has_many :participants
   
-  attr_accessible :name, :deadline, :message, :bets_attributes
+  attr_accessible :name, :deadline, :message, :bets_attributes, :consolation, :consolation_points
   
   accepts_nested_attributes_for :bets
   

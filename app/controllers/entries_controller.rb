@@ -20,8 +20,9 @@ class EntriesController < ApplicationController
   
   def show
     if @participant.accepted?
-      @bets = @participant.scoresheet.bets.order("position")
-      @participants = @participant.scoresheet.participants.accepted.order("position")
+      @scoresheet = @participant.scoresheet
+      @bets = @scoresheet.bets.order("position")
+      @participants = @scoresheet.participants.accepted.order("position")
       @entries = {}
       @differentials = {}
       @winners = {}
@@ -57,26 +58,56 @@ class EntriesController < ApplicationController
         end
       end
       
+      if @scoresheet.consolation?
+        @consolation = {}
+        @participants.each do |p|
+          @consolation[p.id] = 0
+          non_winner_bets = @bets.select {|b| b.bet_type != 'winner'}
+          winner_bets = @bets.select{|b| b.bet_type == 'winner'}
+          non_winner_bets.each do |b|
+            @consolation[p.id] += @differentials[b.id][p.id]
+          end
+          winner_bets.each do |b|
+            @consolation[p.id] += @differentials[b.id][p.id]
+            @consolation[p.id] -= 3 if b.winner == p.entries.detect {|e| e.bet_id == b.id}.try(:winner) #3 pt discount if winner picked correctly
+          end
+        end
+      end
+      
+      
       #determine winners of each bet
       @bets.each do |b|
         lowest_diff = @differentials[b.id].values.sort.first
         @winners[b.id] = @differentials[b.id].select {|k,v| v == lowest_diff}.keys
       end
-      
+      if @scoresheet.consolation?
+        lowest_consolation = @consolation.values.sort.first
+        @winners['consolation'] = @consolation.select {|k,v| v == lowest_consolation}.keys
+      end      
       #determine standings of each participant
+      participants_count = @participants.length
       @participants.each do |p|
         @standings[p.id] = {}
         @bets.each do |b|
           winner_count = @winners[b.id].length
-          loser_count = (@participants.length - winner_count)
+          loser_count = (participants_count - winner_count)
           @standings[p.id][b.id] =  if @winners[b.id].include?(p.id)
                                       loser_count * b.points.to_f / winner_count.to_f
                                     else
                                       b.points*-1
                                     end
         end
+        if @scoresheet.consolation?
+          consolation_winner_count = @winners['consolation'].length
+          consolation_loser_count = (participants_count - consolation_winner_count)        
+          @standings[p.id]['consolation'] = if @winners['consolation'].include?(p.id)
+                                              consolation_loser_count * @scoresheet.consolation_points / consolation_winner_count
+                                            else
+                                              @scoresheet.consolation_points*-1
+                                            end
+        end
       end
-      
+            
     else
       redirect_to "/entries/#{@participant.key}/new"
     end

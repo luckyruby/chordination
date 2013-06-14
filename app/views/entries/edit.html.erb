@@ -11,9 +11,9 @@
           <%= e.hidden_field :participant_id %>
           <% if e.object.bet.bet_type == 'winner' %>
             <%= e.select :winner, options_for_select(e.object.bet.choices.split(","), e.object.winner) %>
-            <%= e.text_field :value, placeholder: 'Win by how much?' %>
+            <%= e.number_field :value, placeholder: 'Win by how much?' %>
           <% else %>
-            <%= e.text_field :value %>
+            <%= e.number_field :value %>
           <% end %>
         </td>
       </tr>

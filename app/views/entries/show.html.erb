@@ -41,6 +41,9 @@
         <% @bets.each do |b| %>
           <th><%= b.name %></th>
         <% end %>
+        <% if @scoresheet.consolation? %>
+          <th>Consolation</th>
+        <% end %>
       </tr>    
       <% @participants.each do |p| %>
         <tr>
@@ -48,11 +51,17 @@
           <% @bets.each do |b| %>
             <td><%= @differentials[b.id][p.id] %></td>
           <% end %>
+          <% if @scoresheet.consolation? %>
+            <td><%= @consolation[p.id] %>
+          <% end %>
       <% end %>
       <tr>
         <th>Winners</th>
         <% @bets.each do |b| %>
           <td><%= @winners[b.id].map {|w| @participants.detect{|p| p.id == w}.name }.join(",") %></td>
+        <% end %>
+        <% if @scoresheet.consolation? %>
+          <td><%= @winners['consolation'].map {|w| @participants.detect{|p| p.id == w}.name }.join(",") %></td>
         <% end %>
       </tr>
     </table>
@@ -66,6 +75,9 @@
         <% @bets.each do |b| %>
           <th><%= b.name %></th>
         <% end %>
+        <% if @scoresheet.consolation? %>
+          <th>Consolation</th>
+        <% end %>
         <th>TOTAL</th>
       </tr>    
       <% @participants.each do |p| %>
@@ -73,6 +85,9 @@
           <td><%= p.name %></td>
           <% @bets.each do |b| %>
             <td><%= sprintf('%g', @standings[p.id][b.id]) %></td>
+          <% end %>
+          <% if @scoresheet.consolation? %>
+            <td><%= sprintf('%g', @standings[p.id]['consolation']) %></td>
           <% end %>
           <td><%= sprintf('%g', @standings[p.id].values.sum) %></td>
       <% end %>
