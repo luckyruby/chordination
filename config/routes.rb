@@ -22,6 +22,7 @@ Chordination::Application.routes.draw do
     member do
       get 'results' => "bets#results"
       put 'results' => "bets#save_results"
+      get 'clone' => "scoresheets#new"
     end
     resources :bets
     resources :results

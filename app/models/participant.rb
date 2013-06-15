@@ -13,8 +13,7 @@ class Participant < ActiveRecord::Base
   
   validates_presence_of :name, :email, :scoresheet_id
   validates_uniqueness_of :email, :scope => :scoresheet_id
-  validates_uniqueness_of :name, :scope => :scoresheet_id
-  
+  validates_uniqueness_of :name, :scope => :scoresheet_id  
   
   #assign unique random key
   before_validation(:on => :create) do

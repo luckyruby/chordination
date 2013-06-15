@@ -1,19 +1,20 @@
 class Scoresheet < ActiveRecord::Base
   belongs_to :user
-  has_many :bets
-  has_many :participants
+  has_many :bets, :dependent => :destroy, autosave: true
+  has_many :participants, :dependent => :destroy, autosave: true
   
-  attr_accessible :name, :deadline, :message, :bets_attributes, :consolation, :consolation_points
+  attr_accessible :name, :deadline, :message, :bets_attributes, :consolation, :consolation_points  
+  attr_accessor :clone_from
   
   accepts_nested_attributes_for :bets
   
-  scope :by_user, lambda { |user| where(user_id: user.id) }
+  scope :by_user, lambda { |id| where(user_id: id) }
   
   validates_presence_of :user_id, :name, :deadline
   validates_numericality_of :user_id
   validates_uniqueness_of :name, :scope => :user_id
   
-  after_create :add_creator_as_participant
+  after_create :clone, :if => proc { self.clone_from.present? }
   
   def participant_count
     self.participants.length
@@ -32,9 +33,16 @@ class Scoresheet < ActiveRecord::Base
   end
   
   private
-  def add_creator_as_participant
-    creator = self.participants.create(name: self.user.name, email: self.user.email, accepted: true)
-    ParticipantMailer.invitation_email(creator).deliver
+    
+  def clone
+    original = Scoresheet.by_user(self.user_id).find(self.clone_from)
+    original.bets.each do |b|
+      self.bets.build(name: b.name, bet_type: b.bet_type, choices: b.choices, points: b.points)
+    end
+    original.participants.each do |p|
+      self.participants.build(name: p.name, email: p.email)
+    end
+    self.save!
   end
 
 end

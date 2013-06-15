@@ -1,6 +1,6 @@
 <%= render 'layouts/errors', object: @scoresheet %>
 <%= form_for @scoresheet do |f| %>
-  <%= hidden_field_tag :clone_id, params[:clone_id] %>
+  <%= hidden_field_tag :id, params[:id] %>
   <fieldset>
     <div id="legend">
       <legend class="">Scoresheet</legend>

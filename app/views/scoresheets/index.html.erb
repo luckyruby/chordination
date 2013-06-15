@@ -9,6 +9,7 @@
     <th>Created At</th>
     <th>Updated At</th>
     <th>&nbsp;</th>
+    <th>&nbsp;</th>
   </tr>
   <% @scoresheets.each do |i| %>
     <tr>
@@ -17,6 +18,7 @@
       <td><%= i.participant_count %>
       <td><%= pretty_datetime(i.created_at) %></td>
       <td><%= pretty_datetime(i.updated_at) %></td>
+      <td><%= link_to 'Clone', clone_scoresheet_path(i), class: 'btn btn-info' %>
       <td><%= link_to 'View', scoresheet_path(i), class: 'btn' %>
     </tr>
   <% end %>
