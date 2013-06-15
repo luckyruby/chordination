@@ -47,7 +47,7 @@
     </tbody>
   </table>
   <% unless @participant.scoresheet.expired? %>
-    <%= link_to 'Modify your Entries', "#{@participant.key}/edit", class: 'btn btn-success' %>
+    <%= link_to 'Modify', "#{@participant.key}/edit", class: 'btn btn-success' %>
   <% end %>
 </div>
 <% if @participant.scoresheet.expired? && @results %>

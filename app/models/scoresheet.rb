@@ -36,10 +36,10 @@ class Scoresheet < ActiveRecord::Base
     
   def clone
     original = Scoresheet.by_user(self.user_id).find(self.clone_from)
-    original.bets.each do |b|
+    original.bets.order("position").each do |b|
       self.bets.build(name: b.name, bet_type: b.bet_type, choices: b.choices, points: b.points)
     end
-    original.participants.each do |p|
+    original.participants.order("position").each do |p|
       self.participants.build(name: p.name, email: p.email)
     end
     self.save!
