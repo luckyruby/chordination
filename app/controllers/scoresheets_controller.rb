@@ -11,10 +11,10 @@ class ScoresheetsController < ApplicationController
   def create
     @scoresheet = Scoresheet.new(params[:scoresheet])
     @scoresheet.user_id = current_user.id
-    @scoresheet.clone_from = params[:id] #for cloning
+    @scoresheet.clone_from(params[:id]) if params[:id].present?
     if @scoresheet.save      
       
-      #add creator as participant
+      #add creator as participant if not already
       unless @scoresheet.participants.exists?(name: current_user.name)
         @scoresheet.participants.create(name: current_user.name, email: current_user.email)
       end

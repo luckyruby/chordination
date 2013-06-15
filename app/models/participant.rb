@@ -1,6 +1,6 @@
 class Participant < ActiveRecord::Base
   acts_as_list :scope => :scoresheet
-  belongs_to :scoresheet
+  belongs_to :scoresheet, :inverse_of => :participants
   has_many :bets, :through => :scoresheet
   has_many :entries, :dependent => :destroy, autosave: true
   
@@ -11,7 +11,7 @@ class Participant < ActiveRecord::Base
   
   accepts_nested_attributes_for :entries
   
-  validates_presence_of :name, :email, :scoresheet_id
+  validates_presence_of :name, :email, :scoresheet
   validates_uniqueness_of :email, :scope => :scoresheet_id
   validates_uniqueness_of :name, :scope => :scoresheet_id  
   
