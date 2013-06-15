@@ -10,8 +10,6 @@
       <th>Name</th>
       <th>Type</th>
       <th>Wager</th>
-      <th>Created At</th>
-      <th>Updated At</th>
       <th>&nbsp;</th>
       <th>&nbsp;</th>
       <th>&nbsp;</th>
@@ -22,8 +20,6 @@
         <td><%= b.name %></td>
         <td><%= b.bet_type %></td>
         <td><%= pluralize(b.points, 'pt') %></td>
-        <td><%= pretty_datetime(b.created_at) %></td>
-        <td><%= pretty_datetime(b.updated_at) %></td>
         <td><%= link_to("", scoresheet_bet_path(@scoresheet, b, method: 'move_higher'), :method => :put, class: 'icon-arrow-up btn') unless b == bets.first %></td>
         <td><%= link_to("", scoresheet_bet_path(@scoresheet, b, method: 'move_lower'), :method => :put, class: 'icon-arrow-down btn') unless b == bets.last %></td>
         <td><%= link_to("", edit_scoresheet_bet_path(@scoresheet, b), class: 'icon-pencil btn') %></td>
@@ -43,8 +39,6 @@
       <th>Name</th>
       <th>Email</th>
       <th>Status</th>
-      <th>Created At</th>
-      <th>Updated At</th>
       <th>&nbsp;</th>
       <th>&nbsp;</th>
       <th>&nbsp;</th>
@@ -56,8 +50,6 @@
         <td><%= p.name %></td>
         <td><%= p.email %></td>
         <td><%= status?(p) %></td>
-        <td><%= pretty_datetime(p.created_at) %></td>
-        <td><%= pretty_datetime(p.updated_at) %></td>
         <td><%= link_to "Resend Invite", reinvite_scoresheet_participant_path(@scoresheet, p), class: 'btn btn-info' %></td>
         <td><%= link_to("", scoresheet_participant_path(@scoresheet, p, method: 'move_higher'), :method => :put, class: 'icon-arrow-up btn') unless p == participants.first %></td>
         <td><%= link_to("", scoresheet_participant_path(@scoresheet, p, method: 'move_lower'), :method => :put, class: 'icon-arrow-down btn') unless p == participants.last %></td>
