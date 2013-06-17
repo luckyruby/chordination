@@ -1,8 +1,8 @@
 class Participant < ActiveRecord::Base
   acts_as_list :scope => :scoresheet
   belongs_to :scoresheet, :inverse_of => :participants
-  has_many :bets, :through => :scoresheet
-  has_many :entries, :dependent => :destroy, autosave: true
+  has_many :bets, :through => :scoresheet, order: 'bets.position'
+  has_many :entries, :dependent => :destroy, autosave: true, :include => :bet, order: 'bets.position'
   
   scope :accepted, where(accepted: true)
   scope :declined, where(declined: true)
@@ -24,7 +24,7 @@ class Participant < ActiveRecord::Base
   end
     
   def build_entry_fields
-    self.bets.order("bets.position").each do |b|
+    self.bets.each do |b|
       self.entries.build(bet_id: b.id) unless self.entries.map(&:bet_id).include?(b.id)
     end
   end
