@@ -28,9 +28,9 @@ class EntriesController < ApplicationController
       
       @entries = @scoresheet.compile_entries(@results)      
       if @scoresheet.expired? && @results
-        @differentials = @scoresheet.compile_differentials(@results)
+        @differentials = @scoresheet.compile_differentials
         @consolation = @scoresheet.compile_consolation(@differentials)
-        @winners = @scoresheet.compile_winners(@differentials, @consolation)
+        @winners = @scoresheet.compile_winners(@differentials, @entries, @consolation)
         @standings = @scoresheet.compile_standings(@winners)
       end                  
     else

@@ -60,7 +60,7 @@ class Scoresheet < ActiveRecord::Base
     entries    
   end
   
-  def compile_differentials(results=nil)
+  def compile_differentials
     #initialize hash by bet_id
     differentials = {}
     self.bets.each {|b| differentials[b.id] = {}}
@@ -106,11 +106,27 @@ class Scoresheet < ActiveRecord::Base
     consolation
   end
   
-  def compile_winners(differentials={}, consolation={})
+  def compile_winners(differentials, entries, consolation={})
+    def tiebreaker(bet, entries, winners)
+      tiebreak = []
+      winners.each do |w|
+        if entries[bet.id][w].split(" by ").first == bet.winner
+          tiebreak << w
+        end
+      end
+      
+      tiebreak
+    end
+    
     winners = {}
     self.bets.each do |b|
       lowest_diff = differentials[b.id].values.sort.first
-      winners[b.id] = differentials[b.id].select {|k,v| v == lowest_diff}.keys
+      bet_winner = differentials[b.id].select {|k,v| v == lowest_diff}.keys
+      if b.bet_type == 'winner' && bet_winner.length > 1 #break the tie by who picked correct winner
+        winners[b.id] = tiebreaker(b, entries, bet_winner)
+      else
+        winners[b.id] = bet_winner
+      end
     end
     
     #add consolation winner
