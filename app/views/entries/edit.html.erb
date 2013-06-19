@@ -2,7 +2,7 @@
 <h4>Deadline: <%= pretty_datetime(@participant.scoresheet.deadline, ampm: true) %></h4>
 <h4>Your Entries</h4>
 <%= render 'layouts/errors', object: @participant %>
-<%= form_for @participant, url: "/entries/#{@participant.key}", html: { class: 'form-horizontal'} do |f| %>
+<%= form_for @participant, url: "/entries/#{@participant.key}", html: { autocomplete: 'off', class: 'form-horizontal'} do |f| %>
   <table class="table table-striped table-hover table-condensed">
     <%= f.fields_for :entries do |e| %>
       <tr>

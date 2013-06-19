@@ -1,5 +1,5 @@
 <%= render 'layouts/errors', object: @scoresheet %>
-<%= form_for @scoresheet do |f| %>
+<%= form_for @scoresheet, html: { autocomplete: 'off', class: 'form-horizontal' } do |f| %>
   <%= hidden_field_tag :id, params[:id] %>
   <fieldset>
     <div id="legend">

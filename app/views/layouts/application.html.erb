@@ -31,8 +31,8 @@
           <div class="nav-collapse">
             <ul class="nav">
               <% if current_user %>
-                <li class="<%= 'active' if action_name == 'scoresheets' %>"><%= link_to 'Scoresheets', scoresheets_path %></li>
-                <li class="<%= 'active' if action_name == 'profile' %>"><%= link_to 'Profile', profile_path %></li>
+                <li class="<%= 'active' if controller_name == 'scoresheets' %>"><%= link_to 'Scoresheets', scoresheets_path %></li>
+                <li class="<%= 'active' if request.fullpath == '/profile' %>"><%= link_to 'Profile', profile_path %></li>
               <% else %>
                 <li class="<%= 'active' if controller_name == 'registrations' %>"><%= link_to 'Register', register_path %></li>
               <% end %>

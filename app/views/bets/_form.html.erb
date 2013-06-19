@@ -1,5 +1,5 @@
 <%= render 'layouts/errors', object: @bet %>
-<%= form_for [@scoresheet, @bet], html: { class: 'form-horizontal'} do |f| %>
+<%= form_for [@scoresheet, @bet], html: { autocomplete: 'off', class: 'form-horizontal'} do |f| %>
   <fieldset>
     <div id="legend">
       <legend class="">Bet</legend>
