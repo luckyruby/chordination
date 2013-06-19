@@ -1,0 +1,5 @@
+<%= render 'layouts/errors', object: @message %>
+<%= form_for @message, url: "/entries/#{@participant.key}/message", html: { autocomplete: 'off' } do |f| %>
+  <%= f.text_area :content, rows: 4 %>
+  <%= f.submit 'Send', class: 'btn btn-info' %>
+<% end %>

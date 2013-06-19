@@ -17,6 +17,7 @@ Chordination::Application.routes.draw do
   put "entries/:key" => "entries#update"
   post "entries/:key/accept" => "entries#accept"
   delete "entries/:key/decline" => "entries#decline"
+  post "entries/:key/message" => "entries#message"
       
   resources :scoresheets do
     member do

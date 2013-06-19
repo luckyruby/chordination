@@ -17,7 +17,7 @@ class ScoresheetsController < ApplicationController
       
       #add creator as participant if not already
       unless @scoresheet.participants.exists?(name: current_user.name)
-        @scoresheet.participants.create(name: current_user.name, email: current_user.email)
+        @scoresheet.participants.create(name: current_user.name, email: current_user.email, accepted: true)
       end
       
       @scoresheet.participants.each {|p| ParticipantMailer.invitation_email(p).deliver} #send invites

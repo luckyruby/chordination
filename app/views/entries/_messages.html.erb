@@ -1,0 +1,12 @@
+<h4>Message Board</h4>
+<% @scoresheet.messages.each do |m| %>
+  <div class="message_wrap">
+    <div class="message_header">
+      <span class="<%= m.participant_id == @participant.id ? 'you' : 'sender'%>"><%= m.sender %></span>
+      <div class="pull-right">
+        <span class="send_time"><%= m.created_at.strftime("%m/%d/%y %I:%M %p")%></span>
+      </div>
+    </div>
+    <p><%= m.content %></p>
+  </div>
+<% end %>

@@ -3,6 +3,7 @@ class Participant < ActiveRecord::Base
   belongs_to :scoresheet, :inverse_of => :participants
   has_many :bets, :through => :scoresheet, order: 'bets.position'
   has_many :entries, :dependent => :destroy, autosave: true, :include => :bet, order: 'bets.position'
+  has_many :messages, autosave: true, order: 'messages.created_at'
   
   scope :accepted, where(accepted: true)
   scope :declined, where(declined: true)

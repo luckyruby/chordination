@@ -1,0 +1,16 @@
+.message_wrap {  
+  p { white-space: pre-wrap; padding: 0px 8px; };
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.message_header {
+  border-bottom: 1px solid gray;
+  background-color: #999;
+  padding: 2px 8px;
+  .you { font-weight: bold; color: darkgreen; };
+  .sender { font-weight: bold; color: darkred; };
+}
+
+#message_content { width: 100%; box-sizing: border-box;}

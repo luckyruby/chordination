@@ -16,6 +16,5 @@
 
 /config/database.yml
 /system/*
-/db/seeds.rb
 /config/mailer.yml
 /config/application.yml

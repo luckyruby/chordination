@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130614015236) do
+ActiveRecord::Schema.define(:version => 20130619185249) do
 
   create_table "bets", :force => true do |t|
     t.integer  "scoresheet_id",                :null => false
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(:version => 20130614015236) do
   end
 
   add_index "entries", ["participant_id", "bet_id"], :name => "index_entries_on_participant_id_and_bet_id", :unique => true
+
+  create_table "messages", :force => true do |t|
+    t.integer  "scoresheet_id",  :null => false
+    t.integer  "participant_id", :null => false
+    t.string   "sender",         :null => false
+    t.text     "content",        :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "participants", :force => true do |t|
     t.integer  "scoresheet_id",                    :null => false

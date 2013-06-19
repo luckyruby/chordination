@@ -23,6 +23,7 @@ class EntriesController < ApplicationController
       @scoresheet = @participant.scoresheet
       @bets = @scoresheet.bets.order("position")
       @participants = @scoresheet.participants.accepted.order("position")
+      @message = Message.new
       @entries = {}
       @differentials = {}
       @winners = {}
@@ -142,6 +143,18 @@ class EntriesController < ApplicationController
     @participant.declined = true
     @participant.save
     render text: 'You have successfully declined this invite.'
+  end
+  
+  def message
+    @message = Message.new(params[:message])
+    @message.scoresheet_id = @participant.scoresheet_id
+    @message.participant_id = @participant.id
+    @message.sender = @participant.name
+    if @message.save
+      redirect_to "/entries/#{@participant.key}", notice: 'Message successfully posted.'
+    else
+      render :show
+    end
   end
     
   private
