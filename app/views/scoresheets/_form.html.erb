@@ -44,7 +44,11 @@
     <div class="control-group">
       <!-- Button -->
       <div class="controls">
-        <%= f.submit class: 'btn btn-success' %>
+        <% if @original %>
+          <%= f.submit "Clone #{@original.name}", class: 'btn btn-success' %>
+        <% else %>
+          <%= f.submit class: 'btn btn-success' %>
+        <% end %>
       </div>
     </div>
   </fieldset>

@@ -6,13 +6,14 @@ class ScoresheetsController < ApplicationController
   
   def new
     @scoresheet = Scoresheet.new
+    @original = Scoresheet.by_user(current_user.id).find_by_id(params[:id])
   end
   
   def create
     @scoresheet = Scoresheet.new(params[:scoresheet])
     @scoresheet.user_id = current_user.id
     @scoresheet.clone_from(params[:id]) if params[:id].present?
-    if @scoresheet.save      
+    if @scoresheet.save
       
       #add creator as participant if not already
       unless @scoresheet.participants.exists?(name: current_user.name)
@@ -22,6 +23,7 @@ class ScoresheetsController < ApplicationController
       @scoresheet.participants.each {|p| ParticipantMailer.invitation_email(p).deliver} #send invites
       redirect_to @scoresheet, notice: 'Scoresheet successfully created.'
     else
+      @original = Scoresheet.by_user(current_user.id).find_by_id(params[:id])
       render :new
     end
   end

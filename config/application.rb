@@ -58,6 +58,7 @@ module Chordination
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    config.copyright = "@ #{Date.today.year} Luckyruby LLC"
   end
   config = YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))
   config.merge! config.fetch(Rails.env, {})
