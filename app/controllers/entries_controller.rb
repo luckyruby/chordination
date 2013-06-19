@@ -1,7 +1,7 @@
 class EntriesController < ApplicationController
   before_filter :validate_key
   before_filter :check_status
-  before_filter :check_expiration, :except => [:show]
+  before_filter :check_expiration, :except => [:show, :message]
   
   def new
   end
