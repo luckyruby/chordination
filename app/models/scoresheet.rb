@@ -1,7 +1,7 @@
 class Scoresheet < ActiveRecord::Base
   belongs_to :user
   has_many :bets, :dependent => :destroy, autosave: true, :inverse_of => :scoresheet, order: 'bets.position'
-  has_many :participants, :dependent => :destroy, autosave: true, :inverse_of => :scoresheet
+  has_many :participants, :dependent => :destroy, autosave: true, :inverse_of => :scoresheet, order: 'participants.position'
   
   attr_accessible :name, :deadline, :message, :bets_attributes, :consolation, :consolation_points
   
