@@ -17,10 +17,10 @@
         <td><%= b.name %></td>
         <td><%= b.bet_type %></td>
         <td><%= pluralize(b.points, 'pt') %></td>
-        <td><%= link_to("", scoresheet_bet_path(@scoresheet, b, method: 'move_higher'), :method => :put, class: 'icon-arrow-up btn') unless b == @scoresheet.bets.first %></td>
-        <td><%= link_to("", scoresheet_bet_path(@scoresheet, b, method: 'move_lower'), :method => :put, class: 'icon-arrow-down btn') unless b == @scoresheet.bets.last %></td>
-        <td><%= link_to("", edit_scoresheet_bet_path(@scoresheet, b), class: 'icon-pencil btn') %></td>
-        <td><%= link_to("", [@scoresheet, b], :method => :delete, class: 'icon-trash btn btn-danger', data: { confirm: "Are you sure you want to remove \"#{b.name}\"?"}) %></td>
+        <td class="icon_button"><%= link_to("", scoresheet_bet_path(@scoresheet, b, method: 'move_higher'), :method => :put, class: 'icon-arrow-up btn') unless b == @scoresheet.bets.first %></td>
+        <td class="icon_button"><%= link_to("", scoresheet_bet_path(@scoresheet, b, method: 'move_lower'), :method => :put, class: 'icon-arrow-down btn') unless b == @scoresheet.bets.last %></td>
+        <td class="icon_button"><%= link_to("", edit_scoresheet_bet_path(@scoresheet, b), class: 'icon-pencil btn') %></td>
+        <td class="icon_button"><%= link_to("", [@scoresheet, b], :method => :delete, class: 'icon-trash btn btn-danger', data: { confirm: "Are you sure you want to remove \"#{b.name}\"?"}) %></td>
       </tr>
     <% end %>
   </table>
@@ -51,10 +51,10 @@
         <td><%= p.email %></td>
         <td><%= status?(p) %></td>
         <td><%= link_to "Resend Invite", reinvite_scoresheet_participant_path(@scoresheet, p), class: 'btn btn-info' %></td>
-        <td><%= link_to("", scoresheet_participant_path(@scoresheet, p, method: 'move_higher'), :method => :put, class: 'icon-arrow-up btn') unless p == @scoresheet.participants.first %></td>
-        <td><%= link_to("", scoresheet_participant_path(@scoresheet, p, method: 'move_lower'), :method => :put, class: 'icon-arrow-down btn') unless p == @scoresheet.participants.last %></td>
-        <td><%= link_to "", edit_scoresheet_participant_path(@scoresheet, p), class: 'icon-pencil btn' %></td>
-        <td><%= link_to "", [@scoresheet, p], :method => :delete, class: 'icon-trash btn btn-danger', data: { confirm: "Are you sure you want to remove #{p.name}?"} %></td>
+        <td class="icon_button"><%= link_to("", scoresheet_participant_path(@scoresheet, p, method: 'move_higher'), :method => :put, class: 'icon-arrow-up btn') unless p == @scoresheet.participants.first %></td>
+        <td class="icon_button"><%= link_to("", scoresheet_participant_path(@scoresheet, p, method: 'move_lower'), :method => :put, class: 'icon-arrow-down btn') unless p == @scoresheet.participants.last %></td>
+        <td class="icon_button"><%= link_to "", edit_scoresheet_participant_path(@scoresheet, p), class: 'icon-pencil btn' %></td>
+        <td class="icon_button"><%= link_to "", [@scoresheet, p], :method => :delete, class: 'icon-trash btn btn-danger', data: { confirm: "Are you sure you want to remove #{p.name}?"} %></td>
       </tr>
     <% end %>
   </table>
