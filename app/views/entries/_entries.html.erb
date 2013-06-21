@@ -18,7 +18,7 @@
               <% if p.id == @participant.id || @participant.scoresheet.expired? %>
                 <%= @entries[b.id][p.name] %>
               <% else %>
-                <%= check_mark('Submitted but hidden') %>
+                <%= check_mark('Submitted') %>
               <% end %>
             <% else %>
               <%= question_mark('No Entry Yet')%>

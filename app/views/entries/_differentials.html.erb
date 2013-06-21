@@ -25,7 +25,7 @@
     <tr class="info bold">
       <td>Winners</td>
       <% @bets.each do |b| %>
-        <td><%= @winners[b.id].join(",") %></td>
+        <td><%= @winners[b.id].join(", ") %></td>
       <% end %>
       <% if @scoresheet.consolation? %>
         <td><%= @winners['consolation'].join(",") %></td>

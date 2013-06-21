@@ -20,7 +20,15 @@ server {
   }
 
   location / {
+    # needed to forward user's IP address to rails
+    proxy_set_header  X-Real-IP  $remote_addr;
 
+    # needed for HTTPS
+    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+    proxy_max_temp_file_size 0;
+    
     # If the file exists as a static file serve it directly without
     # running all the other rewite tests on it
     if (-f $request_filename) {
