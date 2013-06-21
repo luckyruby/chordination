@@ -52,5 +52,12 @@ class ParticipantsController < ApplicationController
     ParticipantMailer.invitation_email(@participant).deliver
     redirect_to @scoresheet, notice: "Successfully re-invited #{@participant.email}."
   end
+  
+  def sort
+    params[:participant].each_with_index do |id, index|
+      Participant.update_all({position: index+1}, {id: id})
+    end
+    render nothing: true
+  end
 
 end

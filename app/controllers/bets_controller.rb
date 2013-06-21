@@ -58,4 +58,11 @@ class BetsController < ApplicationController
     end
   end
   
+  def sort
+    params[:bet].each_with_index do |id, index|
+      Bet.update_all({position: index+1}, {id: id})
+    end
+    render nothing: true
+  end
+  
 end

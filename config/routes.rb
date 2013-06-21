@@ -1,6 +1,6 @@
 Chordination::Application.routes.draw do
+  
   devise_for :users
-
   devise_scope :user do
     get "login" => "devise/sessions#new"
     delete "logout" => "devise/sessions#destroy"
@@ -8,9 +8,11 @@ Chordination::Application.routes.draw do
     get "register" => "devise/registrations#new"
     post "register" => "devise/registrations#create"
   end
+  
   get "about" => "pages#about"
   get "dashboard" => "pages#dashboard"
   
+  #entries
   get "entries/:key/new" => "entries#new"
   get "entries/:key" => "entries#show"
   get "entries/:key/edit" => "entries#edit"
@@ -25,12 +27,13 @@ Chordination::Application.routes.draw do
       put 'results' => "bets#save_results"
       get 'clone' => "scoresheets#new"
     end
-    resources :bets
+    resources :bets do
+      collection { post :sort }
+    end
     resources :results
     resources :participants do
-      member do
-        get "reinvite"
-      end
+      collection { post :sort }
+      member { get :reinvite }
     end
   end
   

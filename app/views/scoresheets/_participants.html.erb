@@ -1,0 +1,26 @@
+<h3>Participants</h3>
+<table id="participants" class="table table-striped table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Status</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody data-update-url="<%= sort_scoresheet_participants_path(@scoresheet) %>">
+    <% @scoresheet.participants.each do |p| %>
+      <%= content_tag_for(:tr, p) do %>
+        <td><%= p.name %></td>
+        <td><%= p.email %></td>
+        <td><%= status?(p) %></td>
+        <td><%= link_to "Resend Invite", reinvite_scoresheet_participant_path(@scoresheet, p), class: 'btn btn-info' %></td>
+        <td class="icon_button"><%= link_to "", edit_scoresheet_participant_path(@scoresheet, p), class: 'icon-pencil btn' %></td>
+        <td class="icon_button"><%= link_to "", [@scoresheet, p], :method => :delete, class: 'icon-trash btn btn-danger', data: { confirm: "Are you sure you want to remove #{p.name}?"} %></td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<p><%= link_to 'Add Participant', new_scoresheet_participant_path(@scoresheet), class: 'btn btn-success' %></p>
