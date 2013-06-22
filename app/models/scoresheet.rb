@@ -11,7 +11,6 @@ class Scoresheet < ActiveRecord::Base
   scope :by_user, lambda { |id| where(user_id: id) }
   
   validates_presence_of :user_id, :name, :deadline
-  validates_numericality_of :user_id
   validates_uniqueness_of :name, :scope => :user_id
   
   def participant_count
