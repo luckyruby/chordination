@@ -12,9 +12,10 @@ class Participant < ActiveRecord::Base
   
   accepts_nested_attributes_for :entries
   
-  validates_presence_of :name, :email, :scoresheet
-  validates_uniqueness_of :email, :scope => :scoresheet_id
-  validates_uniqueness_of :name, :scope => :scoresheet_id  
+  validates :name, :email, :scoresheet, :key, presence: true
+  validates :email, uniqueness: {:scope => :scoresheet_id}
+  validates :name, uniqueness: {:scope => :scoresheet_id}
+  validates :key, uniqueness: true
   
   #assign unique random key
   before_validation(:on => :create) do
