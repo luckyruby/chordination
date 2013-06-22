@@ -9,8 +9,10 @@ gem 'jquery-rails'
 gem 'therubyracer'
 gem 'exception_notification'
 
-gem 'quiet_assets', group: [:development, :ken]
-gem 'better_errors', :group => [:development, :ken]
+group :development do
+  gem 'quiet_assets'
+  gem 'better_errors'
+end
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -20,4 +22,16 @@ group :assets do
   gem 'twitter-bootstrap-rails'
   gem 'jquery-ui-rails'
   gem 'touchpunch-rails'
+end
+
+group :development, :test do
+  gem "rspec-rails", "~> 2.13.0"
+  gem "factory_girl_rails", "~> 4.2.1"
+end
+
+group :test do
+  gem "faker", "~> 1.1.2"
+  gem "capybara", "~> 2.0.2"
+  gem "database_cleaner", "~> 0.9.1"
+  gem "launchy", "~> 2.2.0"
 end
